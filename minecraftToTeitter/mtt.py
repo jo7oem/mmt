@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 """
 minecraft twitter 連携tool
-
 """
 from requests_oauthlib import OAuth1Session
 from docutils.languages import cs
