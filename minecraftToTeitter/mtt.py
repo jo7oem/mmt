@@ -26,11 +26,16 @@ class tweetOAuth():
         self.req = self.twitter.post(self.url, params=self.params)
         return self.req
 
-    def SetHeader(self, str):
-        self.header = str
+    def SetHeader(self, text):
+        self.header = text
 
-    def SetPayload(self, str):
-        self.payload = str
+    def SetPayload(self, text):
+        self.payload = text
 
-    def SetFooter(self, str):
-        self.footer = str
+    def SetFooter(self, text):
+        self.footer = text
+
+    def SetText(self, head, payload, footer):
+        self.header = head
+        self.payload = payload
+        self.footer = footer
