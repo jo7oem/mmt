@@ -3,7 +3,7 @@
 minecraft twitter 連携tools
 """
 from requests_oauthlib import OAuth1Session
-from docutils.languages import cs
+import re
 
 
 class tweetOAuth():
@@ -38,3 +38,28 @@ class tweetOAuth():
         self.header = head
         self.payload = payload
         self.footer = footer
+
+
+class encLog():
+
+    def __init__(self, text1, text2):
+        self.matchlist = text1
+        self.outl = text2
+        self.pattern = re.compile(self.matchlist)
+
+    def getResult(self):
+        return self.result
+
+    def compDo(self):
+        self.result = self.pattern.sub(self.outl, self.source)
+        return self.result
+
+    def SetComp(self, text):
+        self.matchlist = text
+        self.pattern = re.compile(self.matchlist)
+
+    def SetOutl(self, text):
+        self.outl = text
+
+    def SetSource(self, text):
+        self.source = text
