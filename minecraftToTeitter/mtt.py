@@ -55,7 +55,7 @@ class encLog():
         return self.result
 
     def compDo(self):
-        self.SetComp()
+
         self.ma = self.infoPa.match(self.source)
         if self.ma:
             self.msay = self.infoPallsay.match(self.source)
@@ -80,6 +80,8 @@ class encLog():
 
     def SetPatternSource(self):
         self.SetLoginout()
+
+        self.SetComp()
 
     def SetLoginout(self):
         self.addPattern(
