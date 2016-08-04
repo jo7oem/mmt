@@ -4,7 +4,13 @@ Created on 2016/08/02
 @author: su-2
 '''
 import mtt
-intext = "[23:53:52] [Server thread/INFO]: jo7oem joined the game"
-matchl = mtt.encLog()
-matchl.SetSource(intext)
-print(matchl.compDo())
+while True:
+    try:
+        inputtext = input()
+    except EOFError:
+        break
+    matchl = mtt.encLog()
+    matchl.SetSource(inputtext)
+    result = matchl.compDo()
+    if result:
+        print(result)
