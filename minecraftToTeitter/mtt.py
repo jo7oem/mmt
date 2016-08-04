@@ -17,7 +17,7 @@ class tweetOAuth():
         self.payload = ""
         self.footer = ""
 
-    def twittDo(self):
+    def tweetDo(self):
         self.url = "https://api.twitter.com/1.1/statuses/update.json"
         self.params = {
             "status": self.header + "\n" + self.payload + "\n" + self.footer}
