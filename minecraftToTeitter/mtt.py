@@ -42,24 +42,56 @@ class tweetOAuth():
 
 class encLog():
 
-    def __init__(self, text1, text2):
-        self.matchlist = text1
-        self.outl = text2
-        self.pattern = re.compile(self.matchlist)
+    def __init__(self):
+        self.patternl = list()
+        self.patternls = list()
+        self.outl = list()
+        self.SetPatternSource()
+        self.infoPa = re.compile(r"(\[..:..:..]) \[Server thread/INFO]:")
+        self.infoPallsay = re.compile(
+            r"(\[..:..:..]) \[Server thread/INFO]: \<(.+)\>\s+@all@(.+)")
 
     def getResult(self):
         return self.result
 
     def compDo(self):
-        self.result = self.pattern.sub(self.outl, self.source)
-        return self.result
+        self.SetComp()
+        self.ma = self.infoPa.match(self.source)
+        if self.ma:
+            self.msay = self.infoPallsay.match(self.source)
+            if self.msay:
+                self.result = self.infoPallsay.sub(r"\3\n\2より \1", self.source)
+                return self.result
+            for i, j in zip(self.patternl, self.outl):
+                print(i, j)
+                self.pattern = i.match(self.source)
+                if self.pattern:
+                    print(i)
+                    self.result = i.sub(j, self.source)
+                    return self.result
 
-    def SetComp(self, text):
-        self.matchlist = text
-        self.pattern = re.compile(self.matchlist)
+        return False
 
-    def SetOutl(self, text):
-        self.outl = text
+    def SetComp(self):
+        for i in self.patternls:
+            self.patternl.append(re.compile(i))
 
     def SetSource(self, text):
         self.source = text
+
+    def SetPatternSource(self):
+        self.SetLoginout()
+
+    def SetLoginout(self):
+        self.addPattern(
+            r"(\[..:..:..]) \[Server thread/INFO]: (.+)joined the game", r"\2は \1 からゲームに参加した")
+        self.addPattern(
+            r"(\[..:..:..]) \[Server thread/INFO]: (.+)left the game", r"\2は \1 にゲームから退場した")
+
+    def addPattern(self, befor, after):
+        self.patternls.append(befor)
+        self.outl.append(after)
+
+
+#patten = r"(\[..:..:..]) \[Server thread/INFO]: (.+)joined the game"
+#olist = r"\2は \1 からゲームに参加した"
