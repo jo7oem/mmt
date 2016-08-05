@@ -12,7 +12,7 @@ import sys
 class mlogtot():
 
     def __init__(self):
-        self.CONFIGPATH = "./mmt.conf"
+        self.CONFIGPATH = "./mmt.conf.main"
         if os.path.exists(self.CONFIGPATH):
             self.configRead()
         else:
@@ -44,7 +44,7 @@ class mlogtot():
         self.CK = config["API Key"]["ck"]
         self.CS = config["API Key"]["cs"]
         self.AT = config["Access Token"]["at"]
-        self.AT = config["Access Token"]["as"]
+        self.AS = config["Access Token"]["as"]
         self.header = config["Tweet Config"]["header"]
         self.footer = config["Tweet Config"]["footer"]
         self.NOTWEET = config["DEBUG"].getboolean("notweet")
