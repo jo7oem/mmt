@@ -61,7 +61,7 @@ class encLog():
             self.msay = self.infoPallsay.match(self.source)
             if self.msay:
                 self.result = self.infoPallsay.sub(
-                    r"\3\n\2 より \1", self.source)
+                    r"\2: \3", self.source)
                 return self.result
             for i, j in zip(self.patternl, self.outl):
                 self.pattern = i.match(self.source)
