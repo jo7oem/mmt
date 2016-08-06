@@ -206,7 +206,3 @@ class encLog():
 
         self.addPattern(
             r".+\[Server thread/INFO]: (.+)withered away", r"\1は枯れ果ててしまった")  # ウィザー
-
-
-#patten = r"(\[..:..:..]) \[Server thread/INFO]: (.+)joined the game"
-#olist = r"\2は \1 からゲームに参加した"
