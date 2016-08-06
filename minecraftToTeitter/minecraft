@@ -1,0 +1,273 @@
+#!/bin/bash
+# /etc/init.d/minecraft
+# version 0.0.1 2015-10-16 (YYYY-MM-DD)
+
+### BEGIN INIT INFO
+# Provides:   minecraft
+# Required-Start: $local_fs $remote_fs
+# Required-Stop:  $local_fs $remote_fs
+# Should-Start:   $network
+# Should-Stop:    $network
+# Default-Start:  2 3 4 5
+# Default-Stop:   0 1 6
+# Short-Description:    Minecraft server
+# Description:    Starts the minecraft server
+### END INIT INFO
+
+###	BEGIN SHELL SETTING
+#config_path=/etc/mcserver.cfg
+#debag_opt=1
+###	END	 SHELL SETTING
+
+###	BEGIN SCRIPT CONFIGURATION
+deamon_usr="minecraft"
+#deamon_usr=`whoami`
+echo $deamon_usr
+#/xxxx/xxx/xxx  not/
+server_path="/home/$deamon_usr/mcserver"
+backup_dir="$server_path/backup_dir"
+jar_name='mcserver.jar'
+
+#use_mod=0 is not use
+use_mod=0
+#0 is auto
+use_cpu=2
+#0 is auto [MB]
+use_ram=2000
+screen_history=100
+jar_option="nogui"
+
+jar_invocation="java -Xmx${use_ram}M -Xms${use_ram}M -XX:+UseConcMarkSweepGC -XX:+CMSIncrementalPacing -XX:ParallelGCThreads=${use_cpu} -XX:+AggressiveOpts -jar $jar_name $jar_option"
+jar_invocation="java -Xmx${use_ram}M -Xms${use_ram}M -Xmn400m -Xss200M -XX:+UseG1GC  -XX:ParallelGCThreads=${use_cpu}  -XX:+AggressiveOpts -jar $jar_name $jar_option"
+world_dir=world
+jar_option="nogui"
+###	END SCRIPT CONFIGURATION
+
+tmp_f=0
+ME=`whoami`
+
+
+
+
+as_user() {
+  if  [  $ME == $deamon_usr ]  ; then
+    bash -c "$1"
+  else
+    su - $deamon_usr -c "$1"
+  fi
+}
+
+screen_cmd(){
+	ent='\015"'"\'"
+	temp_sc_cmd="\'stuff \" $1$ent"
+	as_user " screen -p 0 -S $deamon_usr -X eval $temp_sc_cmd"
+}
+mc_check_mod(){
+	if [ $use_mod == 1 ] ;then
+	as_user "mv $server_path/list_mods $server_path/list_mods_old >/dev/null"
+	as_user "ls -AR $server_path/mods > $server_path/list_mods"
+	if diff $server_path/list_mods $server_path/list_mods_old >/dev/null ;then
+	echo "No change"
+	else 
+	echo "Detecting changes"
+	echo "creating a backup file"
+	as_user "rm -f $server_path/server_mods.7z > /dev/null"
+	as_user "7za a $server_path/server_mods.7z $server_path/mods/ > /dev/null"
+	echo 'Done!'
+	fi
+	as_user "rm -f $server_path/list_mods_old"
+	
+	as_user "rm -f $server_path/server_config.7z > /dev/null"
+	as_user "7za a $server_path/server_config.7z $server_path/config/ > /dev/null"
+	
+	
+	
+	
+	
+	
+	fi
+	}
+
+mc_start() {
+#mc_check_mod
+  if  pgrep -u $deamon_usr -f $jar_name -l |grep java >/dev/null
+  then
+    echo "$jar_name is already running!"
+  else
+    echo "Starting $jar_name..."
+    cd $server_path
+    as_user "cd $server_path && screen -h $screen_history -dmS $deamon_usr $jar_invocation"
+    
+    tmp_i=0
+    until [ $tmp_i == 9 ]
+		do
+		if pgrep -u $deamon_usr  -l |grep java > /dev/null
+			then
+				tmp_f=1
+				break
+			else
+				tmp_i=$(expr $tmp_i + 1)
+		fi
+		sleep 1
+		done
+    
+    if [ $tmp_f == 1 ]
+    then
+      echo "$jar_name is now running."
+    else
+      echo "Error! Could not start $jar_name!"
+    fi
+  fi
+}
+
+mc_stop() {
+   if  pgrep -u $deamon_usr -f $jar_name -l |grep java >/dev/null
+  then
+    echo "Stopping $jar_name"
+    screen_cmd "say SERVER SHUTTING DOWN IN 10 SECONDS. Saving map..."
+    as_user "screen -p 0 -S minecraft -X eval 'stuff \"save-all\"\015'"
+    sleep 10
+    as_user "screen -p 0 -S minecraft -X eval 'stuff \"stop\"\015'"
+  else
+    echo "$jar_name was not running."
+  fi
+      tmp_i=0
+    until [ $tmp_i == 9 ]
+		do
+		if pgrep -u $deamon_usr  -l |grep java > /dev/null
+			then
+				tmp_i=$(expr $tmp_i + 1)
+			else
+				tmp_f=1
+				break
+		fi
+		sleep 1
+		done
+    
+    if [ $tmp_f == 1 ]
+    then
+          echo "$jar_name is stopped."
+    else
+          echo "Error! $jar_name could not be stopped."
+    fi
+}
+
+
+
+mc_saveoff() {
+  if pgrep -u $deamon_usr  -l |grep java > /dev/null
+  then
+    echo "$jar_name is running... suspending saves"
+    screen_cmd "say SERVER BACKUP STARTING. Server going readonly..."
+    screen_cmd "save-off"
+    screen_cmd "save-all"
+    sync
+    sleep 10
+  else
+    echo "$jar_name is not running. Not suspending saves."
+  fi
+}
+
+mc_saveon() {
+  if pgrep -u $deamon_usr  -l |grep java > /dev/null
+  then
+    echo "$jar_name is running... re-enabling saves"
+    screen_cmd "save-on"
+    screen_cmd "say SERVER BACKUP ENDED. Server going read-write..."
+  else
+    echo "$jar_name is not running. Not resuming saves."
+  fi
+}
+mc_backup(){
+	mc_saveoff
+	now=$(date "+%Y-%m-%d_%Hh%M")
+	backup_file="$backup_dir/${world_dir}_${now}.7z"
+	temp_dir="$backup_dir/temp"
+	echo "Backing up minecraft world..."
+	as_user "mkdir -p $temp_dir"
+	as_user "cd $server_path && cp -r -t $temp_dir $world_dir config/ ./server.properties ./eula.txt ./banned-ips.json ./banned-players.json ./whitelist.json ./ops.json "
+	   echo "Compressing backup..."
+	as_user "mv $temp_dir  $backup_dir/${world_dir}_${now} && 7za a $backup_file $backup_dir/${world_dir}_${now} && rm -rf $backup_dir/${world_dir}_${now}"
+	 mc_saveon
+   echo "Done."	
+	
+	
+}
+
+
+mc_command() {
+  command="$1";
+    if pgrep -u $deamon_usr  -l |grep java > /dev/null
+  then
+    pre_log_len=`wc -l "$server_path/logs/latest.log" | awk '{print $1}'`
+    echo "$jar_name is running... executing command"
+    as_user "screen -p 0 -S minecraft -X eval 'stuff \"$command\"\015'"
+    sleep .1 # assumes that the command will run and print to the log file in less than .1 seconds
+    # print output
+    tail -n $[`wc -l "$server_path/logs/latest.log" | awk '{print $1}'`-$pre_log_len] "$server_path/logs/latest.log"
+  fi
+}
+
+
+
+#Start-Stop here
+case "$1" in
+  start)
+    mc_start
+    ;;
+  stop)
+    mc_stop
+    ;;
+  restart)
+    mc_stop
+    mc_start
+    ;;
+  update)
+    mc_stop
+    mc_backup
+    mc_update
+    mc_start
+    ;;
+  backup)
+    mc_backup
+    ;;
+   mc_check_mod)
+   mc_check_mod
+   ;;
+  rebuild)
+	mc_stop
+	rm -rf $server_path/$world_dir
+	mc_start
+	;;
+  maintenance)
+     find  $backup_dir -mtime +8 -exec rm -f {} \; 
+     mc_backup
+     ;;
+  status)
+    if pgrep -u $deamon_usr  -l |grep java > /dev/null
+    then
+      echo "$jar_name is running."
+    else
+      echo "$jar_name is not running."
+    fi
+    ;;
+  command)
+    if [ $# -gt 1 ]; then
+      shift
+      mc_command "$*"
+    else
+      echo "Must specify server command (try 'help'?)"
+    fi
+    ;;
+
+  *)
+  echo "Usage: $0 {start|stop|update|backup|maintenance|status|restart|rebuild|command \"server command\"}"
+  exit 1
+  ;;
+esac
+
+exit 0
+
+[[Category:Guides]]
+
+

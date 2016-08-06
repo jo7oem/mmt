@@ -36,7 +36,7 @@ class mlogtot():
                     print(result)
                 else:
                     tweet.SetPayload(result)
-                    tweet.tweetDo()
+                    print(tweet.tweetDo())
 
     def configRead(self):
         config = configparser.ConfigParser()
