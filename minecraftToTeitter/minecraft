@@ -81,10 +81,6 @@ mc_check_mod(){
 	as_user "7za a $server_path/server_config.7z $server_path/config/ > /dev/null"
 	
 	
-	
-	
-	
-	
 	fi
 	}
 
