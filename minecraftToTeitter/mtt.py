@@ -100,7 +100,7 @@ class encLog():
             r".+\[Server thread/INFO]: (.+)has just earned the achievement (\[.+])", r"\1は\2の実績を達成した")
 
     def SetDeathMes(self):
-        #self.addPattern(r".+\[Server thread/INFO]: (.+)",r"")
+        #self.addPattern(r".+\[Server thread/INFO]: (.+)",r"\1は")
         self.addPattern(
             r".+\[Server thread/INFO]: (.+)was squashed by a falling anvil", r"\1は落下してきた金床に押しつぶされた")  # 金床
 
@@ -155,6 +155,38 @@ class encLog():
             r".+\[Server thread/INFO]: (.+)burned to death", r"\1はこんがりと焼けてしまった")  # 火3
         self.addPattern(
             r".+\[Server thread/INFO]: (.+)was burnt to a crisp whilst fighting(.+)", r"\1は\2と戦いながらカリカリに焼けてしまった")  # 火4
+
+        self.addPattern(
+            r".+\[Server thread/INFO]: (.+)tried to swim in lava while trying to escape(.+)", r"\1は\2から逃れようと溶岩遊泳を試みた")  # lava1
+        self.addPattern(
+            r".+\[Server thread/INFO]: (.+)tried to swim in lava", r"\1は溶岩遊泳を試みた")  # lava2
+
+        self.addPattern(
+            r".+\[Server thread/INFO]: (.+)died", r"\1は死んでしまった")  # etc1
+        self.addPattern(
+            r".+\[Server thread/INFO]: (.+)was squashed by a falling block", r"\1は落下してきたブロックに押しつぶされた")  # etc2
+
+        self.addPattern(
+            r".+\[Server thread/INFO]: (.+)starved to death", r"\1は飢え死にしてしまった")  # 餓死
+
+        self.addPattern(
+            r".+\[Server thread/INFO]: (.+)suffocated in a wall", r"\1は壁の中で窒息してしまった\n*かべのなかにいる*")  # 窒息
+
+        self.addPattern(
+            r".+\[Server thread/INFO]: (.+)was killed while trying to hurt(.+)", r"\1は\2を傷つけようとして殺されました。")  # エンチャント
+
+        self.addPattern(
+            r".+\[Server thread/INFO]: (.+)was pummeled by(.+)", r"\1は\2によってぺしゃんこにされた")  # nouse?
+
+        self.addPattern(
+            r".+\[Server thread/INFO]: (.+)fell out of the world", r"\1は奈落の底へ落ちてしまった")  # void1
+        self.addPattern(
+            r".+\[Server thread/INFO]: (.+)fell from a high place and fell out of the world", r"\1は高いところから落ちてそのまま奈落へと落ちていった")  # void2
+        self.addPattern(
+            r".+\[Server thread/INFO]: (.+)was knocked into the void by(.+)", r"\1は\2によって奈落へと突き落とされた")  # void3
+
+        self.addPattern(
+            r".+\[Server thread/INFO]: (.+)withered away", r"\1は枯れ果ててしまった")  # ウィザー
 
 
 #patten = r"(\[..:..:..]) \[Server thread/INFO]: (.+)joined the game"
