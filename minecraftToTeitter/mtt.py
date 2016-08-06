@@ -107,7 +107,22 @@ class encLog():
         self.addPattern(
             r".+\[Server thread/INFO]: (.+)was pricked to death", r"\1は刺されて死んでしまった")  # サボテン1
         self.addPattern(
-            r".+\[Server thread/INFO]: (.+)walked into a cactus whilst trying to escape(.+)", r"\1は\2から逃げようとしてサボテンにぶつかってしまった")
+            r".+\[Server thread/INFO]: (.+)walked into a cactus whilst trying to escape(.+)", r"\1は\2から逃げようとしてサボテンにぶつかってしまった")  # サボテン2
+
+        self.addPattern(
+            r".+\[Server thread/INFO]: (.+)was shot by arrow", r"\1は矢に射抜かれた")  # ディスペンサー
+
+        self.addPattern(
+            r".+\[Server thread/INFO]: (.+)drowned whilst trying to escape(.+)", r"\1は\2から逃れようとして溺れ死んでしまった")  # 溺死1
+        self.addPattern(
+            r".+\[Server thread/INFO]: (.+)drowned", r"\1は溺れ死んでしまった")  # 溺死2
+
+        self.addPattern(
+            r".+\[Server thread/INFO]: (.+)was blown up by(.+)", r"\1は\2に爆破されてしまった")  # 爆発1
+        self.addPattern(
+            r".+\[Server thread/INFO]: (.+)blew up", r"\1は爆発に巻き込まれてしまった")  # 爆発2
+
+        self.addPattern(r".+\[Server thread/INFO]: (.+)", r"")  # 落下1
 
 
 #patten = r"(\[..:..:..]) \[Server thread/INFO]: (.+)joined the game"
