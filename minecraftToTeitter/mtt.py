@@ -122,7 +122,30 @@ class encLog():
         self.addPattern(
             r".+\[Server thread/INFO]: (.+)blew up", r"\1は爆発に巻き込まれてしまった")  # 爆発2
 
-        self.addPattern(r".+\[Server thread/INFO]: (.+)", r"")  # 落下1
+        self.addPattern(
+            r".+\[Server thread/INFO]: (.+)hit the ground too hard", r"\1は地面と強く激突してしまった")  # 落下1
+        self.addPattern(
+            r".+\[Server thread/INFO]: (.+)fell from a high place", r"\1は高い所から落ちた")  # 落下2
+        self.addPattern(
+            r".+\[Server thread/INFO]: (.+)fell off a ladder", r"\1ははしごから落ちた")  # 落下3
+        self.addPattern(
+            r".+\[Server thread/INFO]: (.+)fell off some vines", r"\1はツタから滑り落ちた")  # 落下4
+        self.addPattern(
+            r".+\[Server thread/INFO]: (.+)fell out of the water", r"\1は水から落ちた")  # 落下5
+        self.addPattern(
+            r".+\[Server thread/INFO]: (.+)fell into a patch of fire", r"\1は火の海に落ちた")  # 落下6
+        self.addPattern(
+            r".+\[Server thread/INFO]: (.+)fell into a patch of cacti", r"\1はサボテンの上に落ちた")  # 落下7
+        self.addPattern(
+            r".+\[Server thread/INFO]: (.+)was doomed to fall by(.+)", r"\1は\2によって命が尽きて落下した")  # 落下8
+        self.addPattern(
+            r".+\[Server thread/INFO]: (.+)was doomed to fall", r"\1は命が尽きて落下した")  # 落下9
+        self.addPattern(
+            r".+\[Server thread/INFO]: (.+)was shot off some vines by(.+)", r"\1は\2によってツタから撃ちだされた")  # 落下10
+        self.addPattern(
+            r".+\[Server thread/INFO]: (.+)was shot off a ladder by(.+)", r"\1は\2によってはしごから撃ちだされた")  # 落下11
+        self.addPattern(
+            r".+\[Server thread/INFO]: (.+)was blown from a high place by(.+)", r"\1は\2によって空中へ吹き飛ばされた")  # 落下12
 
 
 #patten = r"(\[..:..:..]) \[Server thread/INFO]: (.+)joined the game"
