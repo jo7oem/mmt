@@ -37,7 +37,7 @@ use_ram=2000
 screen_history=100
 jar_option="nogui"
 
-jar_invocation="java -Xmx${use_ram}M -Xms${use_ram}M -XX:+UseConcMarkSweepGC -XX:+CMSIncrementalPacing -XX:ParallelGCThreads=${use_cpu} -XX:+AggressiveOpts -jar $jar_name $jar_option"
+#jar_invocation="java -Xmx${use_ram}M -Xms${use_ram}M -XX:+UseConcMarkSweepGC -XX:+CMSIncrementalPacing -XX:ParallelGCThreads=${use_cpu} -XX:+AggressiveOpts -jar $jar_name $jar_option"
 jar_invocation="java -Xmx${use_ram}M -Xms${use_ram}M -Xmn400m -Xss200M -XX:+UseG1GC  -XX:ParallelGCThreads=${use_cpu}  -XX:+AggressiveOpts -jar $jar_name $jar_option"
 world_dir=world
 jar_option="nogui"
