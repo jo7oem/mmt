@@ -147,6 +147,15 @@ class encLog():
         self.addPattern(
             r".+\[Server thread/INFO]: (.+)was blown from a high place by(.+)", r"\1は\2によって空中へ吹き飛ばされた")  # 落下12
 
+        self.addPattern(
+            r".+\[Server thread/INFO]: (.+)went up in flames", r"\1は炎に巻かれてしまった")  # 火1
+        self.addPattern(
+            r".+\[Server thread/INFO]: (.+)walked into a fire whilst fighting(.+)", r"\1は\2と戦いながら火の中へ踏み入れてしまった")  # 火2
+        self.addPattern(
+            r".+\[Server thread/INFO]: (.+)burned to death", r"\1はこんがりと焼けてしまった")  # 火3
+        self.addPattern(
+            r".+\[Server thread/INFO]: (.+)was burnt to a crisp whilst fighting(.+)", r"\1は\2と戦いながらカリカリに焼けてしまった")  # 火4
+
 
 #patten = r"(\[..:..:..]) \[Server thread/INFO]: (.+)joined the game"
 #olist = r"\2は \1 からゲームに参加した"
