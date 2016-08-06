@@ -101,6 +101,25 @@ class encLog():
 
     def SetDeathMes(self):
         #self.addPattern(r".+\[Server thread/INFO]: (.+)",r"\1は")
+
+        self.addPattern(
+            r".+\[Server thread/INFO]: (.+)got finished off by(.+)using(.+)", r"\1は\2の\3でとどめを刺された")  # 他殺1
+        self.addPattern(
+            r".+\[Server thread/INFO]: (.+)was slain by(.+)using(.+)", r"\1は\2の\3で殺害された")  # 他殺2
+        self.addPattern(
+            r".+\[Server thread/INFO]: (.+)shot by(.+)using(.+)", r"\1は\2の\3で射抜かれた")  # 他殺3
+
+        self.addPattern(
+            r".+\[Server thread/INFO]: (.+)was fireballed by(.+)", r"\1は\2に火だるまにされた")  # 他殺4
+        self.addPattern(
+            r".+\[Server thread/INFO]: (.+)was killed by(.+)using magic", r"\1は魔法を使う\2に殺された")  # 他殺5
+        self.addPattern(
+            r".+\[Server thread/INFO]: (.+)was slain by(.+)", r"\1は\2に殺害された")  # 他殺6
+        self.addPattern(
+            r".+\[Server thread/INFO]: (.+)was shot by(.+)", r"\1は\2に射抜かれた")  # 他殺7
+        self.addPattern(
+            r".+\[Server thread/INFO]: (.+)was killed by magic", r"\1は魔法で殺された")  # 他殺8
+
         self.addPattern(
             r".+\[Server thread/INFO]: (.+)was squashed by a falling anvil", r"\1は落下してきた金床に押しつぶされた")  # 金床
 
