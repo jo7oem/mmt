@@ -80,6 +80,8 @@ class encLog():
 
     def SetPatternSource(self):
         self.SetLoginout()
+        self.SetPerformance()
+        self.SetDeathMes()
 
         self.SetComp()
 
@@ -92,6 +94,20 @@ class encLog():
     def addPattern(self, befor, after):
         self.patternls.append(befor)
         self.outl.append(after)
+
+    def SetPerformance(self):
+        self.addPattern(
+            r".+\[Server thread/INFO]: (.+)has just earned the achievement (\[.+])", r"\1は\2の実績を達成した")
+
+    def SetDeathMes(self):
+        #self.addPattern(r".+\[Server thread/INFO]: (.+)",r"")
+        self.addPattern(
+            r".+\[Server thread/INFO]: (.+)was squashed by a falling anvil", r"\1は落下してきた金床に押しつぶされた")  # 金床
+
+        self.addPattern(
+            r".+\[Server thread/INFO]: (.+)was pricked to death", r"\1は刺されて死んでしまった")  # サボテン1
+        self.addPattern(
+            r".+\[Server thread/INFO]: (.+)walked into a cactus whilst trying to escape(.+)", r"\1は\2から逃げようとしてサボテンにぶつかってしまった")
 
 
 #patten = r"(\[..:..:..]) \[Server thread/INFO]: (.+)joined the game"

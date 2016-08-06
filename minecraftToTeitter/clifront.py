@@ -48,7 +48,6 @@ class mlogtot():
         self.header = config["Tweet Config"]["header"]
         self.footer = config["Tweet Config"]["footer"]
         self.NOTWEET = config["DEBUG"].getboolean("notweet")
-        print(self.header)
 
     def CreatConfig(self):
         config = configparser.ConfigParser()
