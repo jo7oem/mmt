@@ -76,7 +76,7 @@ class encLog():
 
     def SetPatternSource(self):
         self.SetLoginout()
-        self.SetPerformance()
+        self.SetAchievements()()
         self.SetDeathMes()
 
         self.SetComp()
@@ -91,7 +91,7 @@ class encLog():
         self.patternls.append(befor)
         self.outl.append(after)
 
-    def SetPerformance(self):
+    def SetAchievements(self):
         self.addPattern(
             r"(\[..:..:..]) \[Server thread/INFO]: (.+)has just earned the achievement (\[.+])", r"\2は\3の実績を達成した\n\1")
 
