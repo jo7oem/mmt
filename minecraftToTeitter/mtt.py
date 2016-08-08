@@ -97,112 +97,112 @@ class encLog():
 
     def SetPerformance(self):
         self.addPattern(
-            r".+\[Server thread/INFO]: (.+)has just earned the achievement (\[.+])", r"\1は\2の実績を達成した")
+            r"(\[..:..:..]) \[Server thread/INFO]: (.+)has just earned the achievement (\[.+])", r"\2は\3の実績を達成した\n\1")
 
     def SetDeathMes(self):
-        #self.addPattern(r".+\[Server thread/INFO]: (.+)",r"\1は")
+        #self.addPattern(r"(\[..:..:..]) \[Server thread/INFO]: (.+)",r"\1は")
 
         self.addPattern(
-            r".+\[Server thread/INFO]: (.+)got finished off by(.+)using(.+)", r"\1は\2の\3でとどめを刺された")  # 他殺1
+            r"(\[..:..:..]) \[Server thread/INFO]: (.+)got finished off by(.+)using(.+)", r"\2は\3の\4でとどめを刺された\n\1")  # 他殺1
         self.addPattern(
-            r".+\[Server thread/INFO]: (.+)was slain by(.+)using(.+)", r"\1は\2の\3で殺害された")  # 他殺2
+            r"(\[..:..:..]) \[Server thread/INFO]: (.+)was slain by(.+)using(.+)", r"\2は\3の\4で殺害された\n\1")  # 他殺2
         self.addPattern(
-            r".+\[Server thread/INFO]: (.+)shot by(.+)using(.+)", r"\1は\2の\3で射抜かれた")  # 他殺3
+            r"(\[..:..:..]) \[Server thread/INFO]: (.+)shot by(.+)using(.+)", r"\2は\3の\4で射抜かれた\n\1")  # 他殺3
 
         self.addPattern(
-            r".+\[Server thread/INFO]: (.+)was fireballed by(.+)", r"\1は\2に火だるまにされた")  # 他殺4
+            r"(\[..:..:..]) \[Server thread/INFO]: (.+)was fireballed by(.+)", r"\2は\3に火だるまにされた\n\1")  # 他殺4
         self.addPattern(
-            r".+\[Server thread/INFO]: (.+)was killed by(.+)using magic", r"\1は魔法を使う\2に殺された")  # 他殺5
+            r"(\[..:..:..]) \[Server thread/INFO]: (.+)was killed by(.+)using magic", r"\2は魔法を使う\3に殺された\n\1")  # 他殺5
         self.addPattern(
-            r".+\[Server thread/INFO]: (.+)was slain by(.+)", r"\1は\2に殺害された")  # 他殺6
+            r"(\[..:..:..]) \[Server thread/INFO]: (.+)was slain by(.+)", r"\2は\3に殺害された\n\1")  # 他殺6
         self.addPattern(
-            r".+\[Server thread/INFO]: (.+)was shot by(.+)", r"\1は\2に射抜かれた")  # 他殺7
+            r"(\[..:..:..]) \[Server thread/INFO]: (.+)was shot by(.+)", r"\2は\3に射抜かれた\n\1")  # 他殺7
         self.addPattern(
-            r".+\[Server thread/INFO]: (.+)was killed by magic", r"\1は魔法で殺された")  # 他殺8
+            r"(\[..:..:..]) \[Server thread/INFO]: (.+)was killed by magic", r"\2は魔法で殺された\n\1")  # 他殺8
 
         self.addPattern(
-            r".+\[Server thread/INFO]: (.+)was squashed by a falling anvil", r"\1は落下してきた金床に押しつぶされた")  # 金床
+            r"(\[..:..:..]) \[Server thread/INFO]: (.+)was squashed by a falling anvil", r"\2は落下してきた金床に押しつぶされた\n\1")  # 金床
 
         self.addPattern(
-            r".+\[Server thread/INFO]: (.+)was pricked to death", r"\1は刺されて死んでしまった")  # サボテン1
+            r"(\[..:..:..]) \[Server thread/INFO]: (.+)was pricked to death", r"\2は刺されて死んでしまった\n\1")  # サボテン1
         self.addPattern(
-            r".+\[Server thread/INFO]: (.+)walked into a cactus whilst trying to escape(.+)", r"\1は\2から逃げようとしてサボテンにぶつかってしまった")  # サボテン2
+            r"(\[..:..:..]) \[Server thread/INFO]: (.+)walked into a cactus whilst trying to escape(.+)", r"\2は\3から逃げようとしてサボテンにぶつかってしまった\n\1")  # サボテン2
 
         self.addPattern(
-            r".+\[Server thread/INFO]: (.+)was shot by arrow", r"\1は矢に射抜かれた")  # ディスペンサー
+            r"(\[..:..:..]) \[Server thread/INFO]: (.+)was shot by arrow", r"\2は矢に射抜かれた\n\1")  # ディスペンサー
 
         self.addPattern(
-            r".+\[Server thread/INFO]: (.+)drowned whilst trying to escape(.+)", r"\1は\2から逃れようとして溺れ死んでしまった")  # 溺死1
+            r"(\[..:..:..]) \[Server thread/INFO]: (.+)drowned whilst trying to escape(.+)", r"\2は\3から逃れようとして溺れ死んでしまった\n\1")  # 溺死1
         self.addPattern(
-            r".+\[Server thread/INFO]: (.+)drowned", r"\1は溺れ死んでしまった")  # 溺死2
+            r"(\[..:..:..]) \[Server thread/INFO]: (.+)drowned", r"\2は溺れ死んでしまった\n\1")  # 溺死2
 
         self.addPattern(
-            r".+\[Server thread/INFO]: (.+)was blown up by(.+)", r"\1は\2に爆破されてしまった")  # 爆発1
+            r"(\[..:..:..]) \[Server thread/INFO]: (.+)was blown up by(.+)", r"\2は\3に爆破されてしまった\n\1")  # 爆発1
         self.addPattern(
-            r".+\[Server thread/INFO]: (.+)blew up", r"\1は爆発に巻き込まれてしまった")  # 爆発2
+            r"(\[..:..:..]) \[Server thread/INFO]: (.+)blew up", r"\2は爆発に巻き込まれてしまった\n\1")  # 爆発2
 
         self.addPattern(
-            r".+\[Server thread/INFO]: (.+)hit the ground too hard", r"\1は地面と強く激突してしまった")  # 落下1
+            r"(\[..:..:..]) \[Server thread/INFO]: (.+)hit the ground too hard", r"\2は地面と強く激突してしまった\n\1")  # 落下1
         self.addPattern(
-            r".+\[Server thread/INFO]: (.+)fell from a high place", r"\1は高い所から落ちた")  # 落下2
+            r"(\[..:..:..]) \[Server thread/INFO]: (.+)fell from a high place", r"\2は高い所から落ちた\n\1")  # 落下2
         self.addPattern(
-            r".+\[Server thread/INFO]: (.+)fell off a ladder", r"\1ははしごから落ちた")  # 落下3
+            r"(\[..:..:..]) \[Server thread/INFO]: (.+)fell off a ladder", r"\2ははしごから落ちた\n\1")  # 落下3
         self.addPattern(
-            r".+\[Server thread/INFO]: (.+)fell off some vines", r"\1はツタから滑り落ちた")  # 落下4
+            r"(\[..:..:..]) \[Server thread/INFO]: (.+)fell off some vines", r"\2はツタから滑り落ちた\n\1")  # 落下4
         self.addPattern(
-            r".+\[Server thread/INFO]: (.+)fell out of the water", r"\1は水から落ちた")  # 落下5
+            r"(\[..:..:..]) \[Server thread/INFO]: (.+)fell out of the water", r"\2は水から落ちた\n\1")  # 落下5
         self.addPattern(
-            r".+\[Server thread/INFO]: (.+)fell into a patch of fire", r"\1は火の海に落ちた")  # 落下6
+            r"(\[..:..:..]) \[Server thread/INFO]: (.+)fell into a patch of fire", r"\2は火の海に落ちた\n\1")  # 落下6
         self.addPattern(
-            r".+\[Server thread/INFO]: (.+)fell into a patch of cacti", r"\1はサボテンの上に落ちた")  # 落下7
+            r"(\[..:..:..]) \[Server thread/INFO]: (.+)fell into a patch of cacti", r"\2はサボテンの上に落ちた\n\1")  # 落下7
         self.addPattern(
-            r".+\[Server thread/INFO]: (.+)was doomed to fall by(.+)", r"\1は\2によって命が尽きて落下した")  # 落下8
+            r"(\[..:..:..]) \[Server thread/INFO]: (.+)was doomed to fall by(.+)", r"\2は\3によって命が尽きて落下した\n\1")  # 落下8
         self.addPattern(
-            r".+\[Server thread/INFO]: (.+)was doomed to fall", r"\1は命が尽きて落下した")  # 落下9
+            r"(\[..:..:..]) \[Server thread/INFO]: (.+)was doomed to fall", r"\2は命が尽きて落下した\n\1")  # 落下9
         self.addPattern(
-            r".+\[Server thread/INFO]: (.+)was shot off some vines by(.+)", r"\1は\2によってツタから撃ちだされた")  # 落下10
+            r"(\[..:..:..]) \[Server thread/INFO]: (.+)was shot off some vines by(.+)", r"\2は\3によってツタから撃ちだされた\n\1")  # 落下10
         self.addPattern(
-            r".+\[Server thread/INFO]: (.+)was shot off a ladder by(.+)", r"\1は\2によってはしごから撃ちだされた")  # 落下11
+            r"(\[..:..:..]) \[Server thread/INFO]: (.+)was shot off a ladder by(.+)", r"\2は\3によってはしごから撃ちだされた\n\1")  # 落下11
         self.addPattern(
-            r".+\[Server thread/INFO]: (.+)was blown from a high place by(.+)", r"\1は\2によって空中へ吹き飛ばされた")  # 落下12
+            r"(\[..:..:..]) \[Server thread/INFO]: (.+)was blown from a high place by(.+)", r"\2は\3によって空中へ吹き飛ばされた\n\1")  # 落下12
 
         self.addPattern(
-            r".+\[Server thread/INFO]: (.+)went up in flames", r"\1は炎に巻かれてしまった")  # 火1
+            r"(\[..:..:..]) \[Server thread/INFO]: (.+)went up in flames", r"\2は炎に巻かれてしまった\n\1")  # 火1
         self.addPattern(
-            r".+\[Server thread/INFO]: (.+)walked into a fire whilst fighting(.+)", r"\1は\2と戦いながら火の中へ踏み入れてしまった")  # 火2
+            r"(\[..:..:..]) \[Server thread/INFO]: (.+)walked into a fire whilst fighting(.+)", r"\2は\3と戦いながら火の中へ踏み入れてしまった\n\1")  # 火2
         self.addPattern(
-            r".+\[Server thread/INFO]: (.+)burned to death", r"\1はこんがりと焼けてしまった")  # 火3
+            r"(\[..:..:..]) \[Server thread/INFO]: (.+)burned to death", r"\2はこんがりと焼けてしまった\n\1")  # 火3
         self.addPattern(
-            r".+\[Server thread/INFO]: (.+)was burnt to a crisp whilst fighting(.+)", r"\1は\2と戦いながらカリカリに焼けてしまった")  # 火4
+            r"(\[..:..:..]) \[Server thread/INFO]: (.+)was burnt to a crisp whilst fighting(.+)", r"\2は\3と戦いながらカリカリに焼けてしまった\n\1")  # 火4
 
         self.addPattern(
-            r".+\[Server thread/INFO]: (.+)tried to swim in lava while trying to escape(.+)", r"\1は\2から逃れようと溶岩遊泳を試みた")  # lava1
+            r"(\[..:..:..]) \[Server thread/INFO]: (.+)tried to swim in lava while trying to escape(.+)", r"\2は\3から逃れようと溶岩遊泳を試みた\n\1")  # lava1
         self.addPattern(
-            r".+\[Server thread/INFO]: (.+)tried to swim in lava", r"\1は溶岩遊泳を試みた")  # lava2
+            r"(\[..:..:..]) \[Server thread/INFO]: (.+)tried to swim in lava", r"\2は溶岩遊泳を試みた\n\1")  # lava2
 
         self.addPattern(
-            r".+\[Server thread/INFO]: (.+)died", r"\1は死んでしまった")  # etc1
+            r"(\[..:..:..]) \[Server thread/INFO]: (.+)died", r"\2は死んでしまった\n\1")  # etc1
         self.addPattern(
-            r".+\[Server thread/INFO]: (.+)was squashed by a falling block", r"\1は落下してきたブロックに押しつぶされた")  # etc2
+            r"(\[..:..:..]) \[Server thread/INFO]: (.+)was squashed by a falling block", r"\2は落下してきたブロックに押しつぶされた\n\1")  # etc2
 
         self.addPattern(
-            r".+\[Server thread/INFO]: (.+)starved to death", r"\1は飢え死にしてしまった")  # 餓死
+            r"(\[..:..:..]) \[Server thread/INFO]: (.+)starved to death", r"\2は飢え死にしてしまった\n\1")  # 餓死
 
         self.addPattern(
-            r".+\[Server thread/INFO]: (.+)suffocated in a wall", r"\1は壁の中で窒息してしまった\n*かべのなかにいる*")  # 窒息
+            r"(\[..:..:..]) \[Server thread/INFO]: (.+)suffocated in a wall", r"\2は壁の中で窒息してしまった\n*かべのなかにいる*\n\1")  # 窒息
 
         self.addPattern(
-            r".+\[Server thread/INFO]: (.+)was killed while trying to hurt(.+)", r"\1は\2を傷つけようとして殺されました。")  # エンチャント
+            r"(\[..:..:..]) \[Server thread/INFO]: (.+)was killed while trying to hurt(.+)", r"\2は\3を傷つけようとして殺されました。\n\1")  # エンチャント
 
         self.addPattern(
-            r".+\[Server thread/INFO]: (.+)was pummeled by(.+)", r"\1は\2によってぺしゃんこにされた")  # nouse?
+            r"(\[..:..:..]) \[Server thread/INFO]: (.+)was pummeled by(.+)", r"\2は\3によってぺしゃんこにされた\n\1")  # nouse?
 
         self.addPattern(
-            r".+\[Server thread/INFO]: (.+)fell out of the world", r"\1は奈落の底へ落ちてしまった")  # void1
+            r"(\[..:..:..]) \[Server thread/INFO]: (.+)fell out of the world", r"\2は奈落の底へ落ちてしまった\n\1")  # void1
         self.addPattern(
-            r".+\[Server thread/INFO]: (.+)fell from a high place and fell out of the world", r"\1は高いところから落ちてそのまま奈落へと落ちていった")  # void2
+            r"(\[..:..:..]) \[Server thread/INFO]: (.+)fell from a high place and fell out of the world", r"\2は高いところから落ちてそのまま奈落へと落ちていった\n\1")  # void2
         self.addPattern(
-            r".+\[Server thread/INFO]: (.+)was knocked into the void by(.+)", r"\1は\2によって奈落へと突き落とされた")  # void3
+            r"(\[..:..:..]) \[Server thread/INFO]: (.+)was knocked into the void by(.+)", r"\2は\3によって奈落へと突き落とされた\n\1")  # void3
 
         self.addPattern(
-            r".+\[Server thread/INFO]: (.+)withered away", r"\1は枯れ果ててしまった")  # ウィザー
+            r"(\[..:..:..]) \[Server thread/INFO]: (.+)withered away", r"\2は枯れ果ててしまった\n\1")  # ウィザー
