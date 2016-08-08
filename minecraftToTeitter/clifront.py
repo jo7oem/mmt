@@ -41,7 +41,6 @@ class mlogtot():
                         if tweet.tweetDo() == 200:
                             break
                         time.sleep((i + 1))
-                        print(i)
 
     def configRead(self):
         config = configparser.ConfigParser()
