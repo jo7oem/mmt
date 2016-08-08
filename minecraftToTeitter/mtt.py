@@ -51,23 +51,20 @@ class encLog():
         self.infoPallsay = re.compile(
             r"(\[..:..:..]) \[Server thread/INFO]: \<(.+)\>\s+@all@(.+)")
 
-    def getResult(self):
-        return self.result
-
     def compDo(self):
 
-        self.ma = self.infoPa.match(self.source)
-        if self.ma:
-            self.msay = self.infoPallsay.match(self.source)
-            if self.msay:
-                self.result = self.infoPallsay.sub(
+        ma = self.infoPa.match(self.source)
+        if ma:
+            msay = self.infoPallsay.match(self.source)
+            if msay:
+                result = self.infoPallsay.sub(
                     r"\2: \3", self.source)
-                return self.result
+                return result
             for i, j in zip(self.patternl, self.outl):
-                self.pattern = i.match(self.source)
-                if self.pattern:
-                    self.result = i.sub(j, self.source)
-                    return self.result
+                pattern = i.match(self.source)
+                if pattern:
+                    result = i.sub(j, self.source)
+                    return result
 
         return False
 
