@@ -7,6 +7,7 @@ import os
 import mtt
 import configparser
 import sys
+import time
 
 
 class mlogtot():
@@ -35,8 +36,12 @@ class mlogtot():
                 if self.NOTWEET:
                     print(result)
                 else:
-                    tweet.SetPayload(result)
-                    print(tweet.tweetDo())
+                    for i in range(5):
+                        tweet.SetPayload(result)
+                        if tweet.tweetDo() == 200:
+                            break
+                        time.sleep((i + 1))
+                        print(i)
 
     def configRead(self):
         config = configparser.ConfigParser()

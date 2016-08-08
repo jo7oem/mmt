@@ -23,7 +23,7 @@ class tweetOAuth():
             "status": self.header + "\n" + self.payload + "\n" + self.footer}
         self.twitter = OAuth1Session(self.CK, self.CS, self.AT, self.AS)
         self.req = self.twitter.post(self.url, params=self.params)
-        return self.req
+        return self.req.status_code
 
     def SetHeader(self, text):
         self.header = text
