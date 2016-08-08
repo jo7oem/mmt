@@ -72,8 +72,7 @@ class encLog():
         return False
 
     def SetComp(self):
-        for i in self.patternls:
-            self.patternl.append(re.compile(i))
+        [self.patternl.append(re.compile(i)) for i in self.patternls]
 
     def SetSource(self, text):
         self.source = text
