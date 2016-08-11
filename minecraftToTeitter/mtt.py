@@ -204,3 +204,15 @@ class encLog():
 
         self.addPattern(
             r"(\[..:..:..]) \[Server thread/INFO]: (.+)withered away", r"\2は枯れ果ててしまった\n\1")  # ウィザー
+
+
+class doMinecraftCMD():
+
+    def __init__(self):
+        self.rejectPat = re.compile(r"[;|&]")
+
+    def rejectCMD(self, txt):
+        if self.rejectPat.match(txt):
+            return True
+        else:
+            return False
