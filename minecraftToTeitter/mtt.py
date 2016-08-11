@@ -4,6 +4,8 @@ minecraft twitter 連携tools
 """
 from requests_oauthlib import OAuth1Session
 import re
+import configparser
+import os
 
 
 class tweetOAuth():
@@ -76,7 +78,7 @@ class encLog():
 
     def SetPatternSource(self):
         self.SetLoginout()
-        self.SetAchievements()()
+        self.SetAchievements()
         self.SetDeathMes()
 
         self.SetComp()
@@ -202,3 +204,33 @@ class encLog():
 
         self.addPattern(
             r"(\[..:..:..]) \[Server thread/INFO]: (.+)withered away", r"\2は枯れ果ててしまった\n\1")  # ウィザー
+
+
+class sendItem():
+
+    def __init__(self, PATH="Achievements.db"):
+        self.CONFIGPATH = PATH
+        if os.path.exists(self.CONFIGPATH):
+            self.configRead()
+        else:
+            self.CreatConfig()
+
+    def CreatConfig(self):
+        self.config = configparser.ConfigParser()
+        self.config["DEFAULT"] = {"items": ""}
+        self.config["Taking Inventory"] = {
+            "items": "minecraft:bread 2,minecraft:torch 6"}
+
+        with open(self.CONFIGPATH, 'w') as configfile:
+            self.config.write(configfile)
+        print("No Config")
+
+    def configRead(self):
+        self.config = configparser.ConfigParser()
+        self.config.read(self.CONFIGPATH)
+
+    def getItems(self, name):
+        try:
+            return self.config.get(name, "items")
+        except:
+            return self.config.get("DEFAULT", "items")

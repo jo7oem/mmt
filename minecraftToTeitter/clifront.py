@@ -8,6 +8,7 @@ import mtt
 import configparser
 import sys
 import time
+import re
 
 
 class mlogtot():
@@ -18,6 +19,8 @@ class mlogtot():
             self.configRead()
         else:
             self.CreatConfig()
+        self.cmpAchievements = re.compile(r"(.+)は\[(.+)]の実績を達成した\n.+")
+        self.sendI = mtt.sendItem()
         self.main()
 
     def main(self):
@@ -32,6 +35,7 @@ class mlogtot():
                 break
             matchl.SetSource(inputtext)
             result = matchl.compDo()
+            self.chkAchieve(result)
             if result:
                 if self.NOTWEET:
                     print(result)
@@ -65,4 +69,11 @@ class mlogtot():
             config.write(configfile)
         print("No Config")
         sys.exit()
+
+    def chkAchieve(self, TXT):
+        if self.cmpAchievements.match(TXT):
+            data = self.cmpAchievements.sub(r"\1,\2", TXT).split(',')
+            result = self.sendI.getItems(data[1])
+
+
 mlogtot()
