@@ -48,6 +48,7 @@ class encLog():
         self.patternl = list()
         self.patternls = list()
         self.outl = list()
+        self.playerdb = list()
         self.SetPatternSource()
         self.infoPa = re.compile(r"(\[..:..:..]) \[Server thread/INFO]:")
         self.infoPallsay = re.compile(
@@ -62,6 +63,18 @@ class encLog():
                 result = self.infoPallsay.sub(
                     r"\2: \3", self.source)
                 return result
+            if self.joinPat.match(self.source):
+                print("join")
+                result = self.joinPat.sub(r"\2は \1 からゲームに参加した", self.source)
+                name = self.joinPat.sub(r"\2", self.source)
+                return result + "\n現在," + str(self.pllistdb(1, name)) + "人がログオンしてるかもです"
+
+            if self.leftPat.match(self.source):
+                print("left")
+                result = self.leftPat.sub(r"\2は \1 にゲームから退場した", self.source)
+                name = self.leftPat.sub(r"\2", self.source)
+                return result + "\n現在," + str(self.pllistdb(-1, name)) + "人がログオンしてるかもです"
+
             for i, j in zip(self.patternl, self.outl):
                 pattern = i.match(self.source)
                 if pattern:
@@ -70,8 +83,23 @@ class encLog():
 
         return False
 
+    def pllistdb(self, mode, name):
+        if 0 < mode:
+            self.playerdb.append(str(name))
+
+        elif 0 > mode:
+            try:
+                self.playerdb.remove(str(name))
+
+            except:
+                pass
+        else:
+            pass
+        print(self.playerdb)
+        return len(self.playerdb)
+
     def SetComp(self):
-        [self.patternl.append(re.compile(i)) for i in self.patternls]
+        self.patternl = [re.compile(i) for i in self.patternls]
 
     def SetSource(self, text):
         self.source = text
@@ -84,10 +112,10 @@ class encLog():
         self.SetComp()
 
     def SetLoginout(self):
-        self.addPattern(
-            r"(\[..:..:..]) \[Server thread/INFO]: (.+)joined the game", r"\2は \1 からゲームに参加した")
-        self.addPattern(
-            r"(\[..:..:..]) \[Server thread/INFO]: (.+)left the game", r"\2は \1 にゲームから退場した")
+        self.joinPat = re.compile(
+            r"(\[..:..:..]) \[Server thread/INFO]: (.+) joined the game")
+        self.leftPat = re.compile(
+            r"(\[..:..:..]) \[Server thread/INFO]: (.+) left the game")
 
     def addPattern(self, befor, after):
         self.patternls.append(befor)
