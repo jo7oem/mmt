@@ -81,6 +81,13 @@ class encLog():
                     result = i.sub(j, self.source)
                     return result
 
+            if self.ServerUp.match(self.source):
+                print("up")
+                return "jj"
+        print("nou")
+        if self.ServerDown.match(self.source):
+            print("down")
+            return "kk"
         return False
 
     def pllistdb(self, mode, name):
@@ -105,11 +112,18 @@ class encLog():
         self.source = text
 
     def SetPatternSource(self):
+        self.SetServerinfo()
         self.SetLoginout()
         self.SetAchievements()
         self.SetDeathMes()
 
         self.SetComp()
+
+    def SetServerinfo(self):
+        self.ServerUp = re.compile(
+            r".+\[Server thread/INFO]: Done .+ For help,.+")
+        self.ServerDown = re.compile(
+            r"\[..:..:..] \[Server Shutdown Thread/INFO]: Stopping server")
 
     def SetLoginout(self):
         self.joinPat = re.compile(
