@@ -82,12 +82,11 @@ class encLog():
                     return result
 
             if self.ServerUp.match(self.source):
-                print("up")
-                return "jj"
+                self.playerdb = list()
+                return "起動完了！"
         print("nou")
         if self.ServerDown.match(self.source):
-            print("down")
-            return "kk"
+            return "サーバー停止します。"
         return False
 
     def pllistdb(self, mode, name):
