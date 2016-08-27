@@ -56,10 +56,8 @@ class encLog():
 
     def compDo(self):
 
-        ma = self.infoPa.match(self.source)
-        if ma:
-            msay = self.infoPallsay.match(self.source)
-            if msay:
+        if self.infoPa.match(self.source):
+            if self.infoPallsay.match(self.source):
                 result = self.infoPallsay.sub(
                     r"\2: \3", self.source)
                 return result
