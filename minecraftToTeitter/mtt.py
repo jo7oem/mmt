@@ -64,13 +64,11 @@ class encLog():
                     r"\2: \3", self.source)
                 return result
             if self.joinPat.match(self.source):
-                print("join")
                 result = self.joinPat.sub(r"\2は \1 からゲームに参加した", self.source)
                 name = self.joinPat.sub(r"\2", self.source)
                 return result + "\n現在," + str(self.pllistdb(1, name)) + "人がログオンしてるかもです"
 
             if self.leftPat.match(self.source):
-                print("left")
                 result = self.leftPat.sub(r"\2は \1 にゲームから退場した", self.source)
                 name = self.leftPat.sub(r"\2", self.source)
                 return result + "\n現在," + str(self.pllistdb(-1, name)) + "人がログオンしてるかもです"
@@ -84,7 +82,6 @@ class encLog():
             if self.ServerUp.match(self.source):
                 self.playerdb = list()
                 return "起動完了！"
-        print("nou")
         if self.ServerDown.match(self.source):
             return "サーバー停止します。"
         return False
